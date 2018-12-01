@@ -1,0 +1,22 @@
+{
+  "name": "rutgerkirkels/vcard-generator",
+  "type": "library",
+  "description": "Library with tools to create a Vcard",
+  "keywords": ["vcard","generator"],
+  "homepage": "https://github.com/rutgerkirkels/vcard-generator",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Rutger Kirkels",
+      "email": "rutger@kirkels.nl",
+      "homepage": "https://rutger.kirkels.nl"
+    }
+  ],
+  "require": {
+  },
+  "autoload": {
+    "psr-4": {
+      "rutgerkirkels\\vcard_generator": "src/"
+    }
+  }
+}
