@@ -124,4 +124,31 @@ class Name
         $this->suffix = $suffix;
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function toString() : string {
+        $string = 'N:';
+        $string .= (!empty($this->getLastName()) ? $this->getLastName() : '') . ';';
+        $string .= (!empty($this->getFirstName()) ? $this->getFirstName() : '') . ';';
+        $string .= (!empty($this->getAdditionalName()) ? $this->getAdditionalName() : '') . ';';
+        $string .= (!empty($this->getPrefix()) ? $this->getPrefix() : '') . ';';
+        $string .= (!empty($this->getSuffix()) ? $this->getSuffix() : '') . ';';
+
+        return $string;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFormattedNameString() : string {
+        $string = 'FN:';
+        $string .= (!empty($this->getPrefix()) ? $this->getPrefix() : '') . ' ';
+        $string .= (!empty($this->getFirstName()) ? $this->getFirstName() : '') . ' ';
+        $string .= (!empty($this->getLastName()) ? $this->getLastName() : '');
+        $string .= (!empty($this->getSuffix()) ? ', ' . $this->getSuffix() : '') . ' ';
+
+        return trim($string);
+    }
 }

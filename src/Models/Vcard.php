@@ -69,9 +69,27 @@ class Vcard
      * Vcard constructor.
      * @param float $version
      */
-    public function __construct(float $version)
+    public function __construct(float $version = null)
     {
-        $this->version = $version;
+        if (!is_null($version)) {
+            $this->version = $version;
+        }
+    }
+
+    /**
+     * @return float
+     */
+    public function getVersion(): float
+    {
+        return $this->version;
+    }
+
+    /**
+     * @return Name
+     */
+    public function getName(): Name
+    {
+        return $this->name;
     }
 
     /**
@@ -83,6 +101,14 @@ class Vcard
         $this->name = $name;
 
         return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getAddresses(): array
+    {
+        return $this->addresses;
     }
 
     /**
@@ -103,6 +129,14 @@ class Vcard
     public function setBirthday(Birthday $birthday) : Vcard
     {
         $this->birthday = $birthday;
+    }
+
+    /**
+     * @return array
+     */
+    public function getEmailAddresses(): array
+    {
+        return $this->emailAddresses;
     }
 
     /**

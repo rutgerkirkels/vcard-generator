@@ -13,7 +13,7 @@ class Address
     /**
      * @var array
      */
-    protected $types = ['work'];
+    protected $types = [];
 
     /**
      * @var string
@@ -59,19 +59,19 @@ class Address
     }
 
     /**
-     * @param array $types
+     * @param string $type
      * @return Address
      */
-    public function setTypes(array $types): Address
+    public function addType(string $type): Address
     {
-        $this->types = $types;
+        $this->types[] = $type;
         return $this;
     }
 
     /**
      * @return string
      */
-    public function getPostofficeAddress(): string
+    public function getPostofficeAddress(): ?string
     {
         return $this->postofficeAddress;
     }
@@ -89,7 +89,7 @@ class Address
     /**
      * @return string
      */
-    public function getExtendedAddress(): string
+    public function getExtendedAddress(): ?string
     {
         return $this->extendedAddress;
     }
@@ -107,7 +107,7 @@ class Address
     /**
      * @return string
      */
-    public function getStreet(): string
+    public function getStreet(): ?string
     {
         return $this->street;
     }
@@ -125,7 +125,7 @@ class Address
     /**
      * @return string
      */
-    public function getLocality(): string
+    public function getLocality(): ?string
     {
         return $this->locality;
     }
@@ -143,7 +143,7 @@ class Address
     /**
      * @return string
      */
-    public function getRegion(): string
+    public function getRegion(): ?string
     {
         return $this->region;
     }
@@ -161,7 +161,7 @@ class Address
     /**
      * @return string
      */
-    public function getPostalCode(): string
+    public function getPostalCode(): ?string
     {
         return $this->postalCode;
     }
@@ -179,7 +179,7 @@ class Address
     /**
      * @return string
      */
-    public function getCountry(): string
+    public function getCountry(): ?string
     {
         return $this->country;
     }
@@ -192,5 +192,20 @@ class Address
     {
         $this->country = $country;
         return $this;
+    }
+
+    public function toString() : string
+    {
+        $string = 'ADR;';
+
+        $string .= 'TYPE=' . strtoupper(implode(',', $this->types)) . ':';
+        $string .= (!empty($this->getPostofficeAddress()) ? $this->getPostofficeAddress() : '') . ';';
+        $string .= (!empty($this->getExtendedAddress()) ? $this->getExtendedAddress() : '') . ';';
+        $string .= (!empty($this->getStreet()) ? $this->getStreet() : '') . ';';
+        $string .= (!empty($this->getLocality()) ? $this->getLocality() : '') . ';';
+        $string .= (!empty($this->getRegion()) ? $this->getRegion() : '') . ';';
+        $string .= (!empty($this->getPostalCode()) ? $this->getPostalCode() : '') . ';';
+        $string .= (!empty($this->getCountry()) ? $this->getCountry() : '') . ';';
+        return trim($string);
     }
 }
