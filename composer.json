@@ -16,7 +16,7 @@
   },
   "autoload": {
     "psr-4": {
-      "rutgerkirkels\\vcard_generator": "src/"
+      "rutgerkirkels\\vcard_generator\\": "src/"
     }
   }
 }
