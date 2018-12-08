@@ -3,10 +3,14 @@
 namespace rutgerkirkels\vcard_generator;
 
 use rutgerkirkels\vcard_generator\Models\Address;
+use rutgerkirkels\vcard_generator\Models\Birthday;
 use rutgerkirkels\vcard_generator\Models\Email;
 use rutgerkirkels\vcard_generator\Models\Name;
+use rutgerkirkels\vcard_generator\Models\Note;
 use rutgerkirkels\vcard_generator\Models\Organization;
+use rutgerkirkels\vcard_generator\Models\Photo;
 use rutgerkirkels\vcard_generator\Models\Telephone;
+use rutgerkirkels\vcard_generator\Models\Url;
 use rutgerkirkels\vcard_generator\Models\Vcard;
 
 /**
@@ -90,6 +94,34 @@ class Generator
         return $this;
     }
 
+    public function addUrl(Url $url) : Generator
+    {
+        $this->vcard->addUrl($url);
+
+        return $this;
+    }
+
+    public function setBirthday(Birthday $birthday) : Generator
+    {
+        $this->vcard->setBirthday($birthday);
+
+        return $this;
+    }
+
+    public function setNote(Note $note) : Generator
+    {
+        $this->vcard->setNote($note);
+
+        return $this;
+    }
+
+    public function setPhoto(Photo $file) : Generator
+    {
+        $this->vcard->setPhoto($file);
+
+        return $this;
+    }
+
     /**
      * @return string
      */
@@ -113,8 +145,39 @@ class Generator
         foreach ($this->vcard->getTelephones() as $telephone) {
             $this->string .= $telephone->toString() . PHP_EOL;
         }
+
+        foreach ($this->vcard->getUrls() as $url) {
+            $this->string .= $url->toString() . PHP_EOL;
+        }
+
+        if (!is_null($this->vcard->getBirthday())) {
+            $this->string .= $this->vcard->getBirthday()->toString() . PHP_EOL;
+        }
+
+        if (!is_null($this->vcard->getNote())) {
+            $this->string .= $this->vcard->getNote()->toString() . PHP_EOL;
+        }
+
+        if (!is_null($this->vcard->getPhoto())) {
+            $this->string .= $this->vcard->getPhoto()->toString() . PHP_EOL;
+        }
+
         $this->string .= 'END:VCARD';
 
         return $this->string;
+    }
+
+    public function store(string $path = './', $filename = null) : bool
+    {
+        if (is_null($filename)) {
+            $filename = rawurlencode($this->vcard->getName()->getFirstName() . $this->vcard->getName()->getLastName()) . '.vcf';
+        }
+
+        if ($storagePath = realpath($path)) {
+            file_put_contents($filename, $this->generate());
+        }
+
+        return true;
+
     }
 }

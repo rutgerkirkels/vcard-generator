@@ -21,6 +21,22 @@ class Organization
     protected $department;
 
     /**
+     * Organization constructor.
+     * @param string|null $name
+     * @param string|null $department
+     */
+    public function __construct(string $name = null, string $department = null)
+    {
+        if (!is_null($name)) {
+            $this->setName($name);
+        }
+
+        if (!is_null($department)) {
+            $this->setDepartment($department);
+        }
+    }
+
+    /**
      * @return string
      */
     public function getName()
@@ -57,6 +73,7 @@ class Organization
     }
 
     /**
+     * Converts model to string to use in Vcard
      * @return string
      */
     public function toString() : string

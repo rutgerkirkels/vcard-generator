@@ -30,6 +30,22 @@ class Telephone
     ];
 
     /**
+     * Telephone constructor.
+     * @param string|null $number
+     * @param string|null $type
+     */
+    public function __construct(string $number = null, string $type = null)
+    {
+        if (!is_null($number)) {
+            $this->setNumber($number);
+        }
+
+        if (!is_null($type)) {
+            $this->addType($type);
+        }
+    }
+
+    /**
      * @return mixed
      */
     public function getNumber()
@@ -71,6 +87,7 @@ class Telephone
     }
 
     /**
+     * Converts model to string to use in Vcard
      * @return string
      */
     public function toString() : string

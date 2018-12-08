@@ -66,6 +66,16 @@ class Vcard
     protected $telephoneNumbers = [];
 
     /**
+     * @var array
+     */
+    protected $urls = [];
+
+    /**
+     * @var Photo
+     */
+    protected $photo;
+
+    /**
      * Vcard constructor.
      * @param float $version
      */
@@ -129,6 +139,16 @@ class Vcard
     public function setBirthday(Birthday $birthday) : Vcard
     {
         $this->birthday = $birthday;
+
+        return $this;
+    }
+
+    /**
+     * @return Birthday
+     */
+    public function getBirthday() : ?Birthday
+    {
+        return $this->birthday;
     }
 
     /**
@@ -151,23 +171,31 @@ class Vcard
     }
 
     /**
-     * @param Geo $geo
-     * @return Vcard
-     */
-    public function setGeo(Geo $geo) : Vcard
-    {
-        $this->geo = $geo;
-
-        return $this;
-    }
-
-    /**
      * @param Note $note
      * @return Vcard
      */
     public function setNote(Note $note) : Vcard
     {
         $this->note = $note;
+
+        return $this;
+    }
+
+    /**
+     * @return null|Note
+     */
+    public function getNote() : ?Note
+    {
+        return $this->note;
+    }
+
+    /**
+     * @param Geo $geo
+     * @return Vcard
+     */
+    public function setGeo(Geo $geo) : Vcard
+    {
+        $this->geo = $geo;
 
         return $this;
     }
@@ -218,5 +246,42 @@ class Vcard
     public function getTelephones() : array
     {
         return $this->telephoneNumbers;
+    }
+
+    /**
+     * @param URL $url
+     * @return Vcard
+     */
+    public function addUrl(URL $url) : Vcard
+    {
+        $this->urls[] = $url;
+
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getUrls() : array
+    {
+        return $this->urls;
+    }
+
+    /**
+     * @return Photo
+     */
+    public function getPhoto(): Photo
+    {
+        return $this->photo;
+    }
+
+    /**
+     * @param Photo $photo
+     * @return Vcard
+     */
+    public function setPhoto(Photo $photo): Vcard
+    {
+        $this->photo = $photo;
+        return $this;
     }
 }

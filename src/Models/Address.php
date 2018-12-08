@@ -51,6 +51,17 @@ class Address
     protected $country;
 
     /**
+     * Address constructor.
+     * @param string|null $type
+     */
+    public function __construct(string $type = null)
+    {
+        if (!is_null($type)) {
+            $this->addType($type);
+        }
+    }
+
+    /**
      * @return array
      */
     public function getTypes(): array
@@ -194,6 +205,10 @@ class Address
         return $this;
     }
 
+    /**
+     * Converts model to string to use in Vcard
+     * @return string
+     */
     public function toString() : string
     {
         $string = 'ADR;';

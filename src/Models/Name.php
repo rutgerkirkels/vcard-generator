@@ -36,6 +36,22 @@ class Name
     protected $suffix;
 
     /**
+     * Name constructor.
+     * @param string|null $firstName
+     * @param string|null $lastName
+     */
+    public function __construct(string $firstName = null, string $lastName = null)
+    {
+        if (!is_null($firstName)) {
+            $this->setFirstName($firstName);
+        }
+
+        if (!is_null($lastName)) {
+            $this->setLastName($lastName);
+        }
+    }
+
+    /**
      * @return string
      */
     public function getFirstName(): string
@@ -126,6 +142,7 @@ class Name
     }
 
     /**
+     * Converts model to string to use in Vcard
      * @return string
      */
     public function toString() : string {
@@ -140,6 +157,7 @@ class Name
     }
 
     /**
+     * Converts model to FN string to use in Vcard
      * @return string
      */
     public function getFormattedNameString() : string {

@@ -2,6 +2,8 @@
 
 namespace rutgerkirkels\vcard_generator\Models;
 
+use rutgerkirkels\vcard_generator\Exceptions\EmailException;
+
 /**
  * Class Email
  * @package rutgerkirkels\vcard_generator\Models
@@ -16,25 +18,50 @@ class Email
     protected $types = ['internet'];
 
     /**
-     * @var
+     * @var string
      */
     protected $address;
 
     /**
-     * @return mixed
+     * Email constructor.
+     * @param string $address
+     * @param string|null $type
      */
-    public function getAddress()
+    public function __construct(string $address, string $type = null)
+    {
+        $this->setAddress($address);
+
+        if (!is_null($type)) {
+            $this->addType($type);
+        }
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getAddress() : ?string
     {
         return $this->address;
     }
 
     /**
-     * @param mixed $address
+     * @param string $address
      * @return Email
      */
-    public function setAddress($address)
+    public function setAddress(string $address) : Email
     {
+        try {
+            if (!filter_var($address, FILTER_VALIDATE_EMAIL)) {
+                throw new EmailException($address . ' is not a valid e-mail address');
+            }
+        }
+        catch (EmailException $e) {
+            trigger_error($e->getMessage(), E_USER_WARNING);
+
+            return $this;
+        }
         $this->address = $address;
+
         return $this;
     }
 
@@ -66,6 +93,7 @@ class Email
     ];
 
     /**
+     * Converts model to string to use in Vcard
      * @return string
      */
     public function toString() : string
