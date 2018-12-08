@@ -97,7 +97,7 @@ class Vcard
     /**
      * @return Name
      */
-    public function getName(): Name
+    public function getName(): ?Name
     {
         return $this->name;
     }
@@ -270,7 +270,7 @@ class Vcard
     /**
      * @return Photo
      */
-    public function getPhoto(): Photo
+    public function getPhoto(): ?Photo
     {
         return $this->photo;
     }

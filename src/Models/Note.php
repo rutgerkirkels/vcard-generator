@@ -48,6 +48,6 @@ class Note
      */
     public function toString() : string
     {
-        return 'NOTE:' . $this->getNote();
+        return 'NOTE:' . str_replace(PHP_EOL, '\\n', $this->getNote());
     }
 }
