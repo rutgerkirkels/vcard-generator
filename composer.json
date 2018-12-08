@@ -1,8 +1,8 @@
 {
   "name": "rutgerkirkels/vcard-generator",
   "type": "library",
-  "description": "Library with tools to create a Vcard",
-  "keywords": ["vcard","generator"],
+  "description": "Library with tools to create vCards",
+  "keywords": ["vCard","generator"],
   "homepage": "https://github.com/rutgerkirkels/vcard-generator",
   "license": "MIT",
   "authors": [
