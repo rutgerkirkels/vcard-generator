@@ -10,8 +10,14 @@ namespace rutgerkirkels\vcard_generator\Models;
  */
 class Telephone
 {
+    /**
+     * @var string
+     */
     protected $number;
 
+    /**
+     * @var array
+     */
     protected $types = [
         'voice'
     ];
@@ -55,14 +61,30 @@ class Telephone
      */
     public function addType(string $type): Telephone
     {
-        if (in_array($type, $this->possibleTypes)) {
+        if (in_array(strtolower($type), $this->possibleTypes)) {
             if (!in_array($type, $this->types)) {
-                $this->types[] = $type;
+                $this->types[] = strtoupper($type);
             }
         }
 
         return $this;
     }
 
+    /**
+     * @return string
+     */
+    public function toString() : string
+    {
+        $string = 'TEL;';
+
+        $types = [];
+        foreach($this->getTypes() as $type) {
+            $types[] = 'TYPE=' . strtoupper($type);
+        }
+        $string .= implode(';', $types) . ':';
+        $string .= (!empty($this->getNumber()) ? $this->getNumber() : '');
+
+        return trim($string);
+    }
 
 }

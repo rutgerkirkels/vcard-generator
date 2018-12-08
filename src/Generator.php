@@ -5,6 +5,7 @@ namespace rutgerkirkels\vcard_generator;
 use rutgerkirkels\vcard_generator\Models\Address;
 use rutgerkirkels\vcard_generator\Models\Email;
 use rutgerkirkels\vcard_generator\Models\Name;
+use rutgerkirkels\vcard_generator\Models\Telephone;
 use rutgerkirkels\vcard_generator\Models\Vcard;
 
 /**
@@ -15,15 +16,28 @@ use rutgerkirkels\vcard_generator\Models\Vcard;
  */
 class Generator
 {
+    /**
+     * @var Vcard
+     */
     protected $vcard;
 
+    /**
+     * @var
+     */
     protected $string;
 
+    /**
+     * Generator constructor.
+     */
     public function __construct()
     {
         $this->vcard = new Vcard();
     }
 
+    /**
+     * @param Name $name
+     * @return Generator
+     */
     public function setName(Name $name) : Generator
     {
         $this->vcard->setName($name);
@@ -31,6 +45,10 @@ class Generator
         return $this;
     }
 
+    /**
+     * @param Address $address
+     * @return Generator
+     */
     public function addAddress(Address $address) : Generator
     {
         $this->vcard->addAddress($address);
@@ -38,6 +56,10 @@ class Generator
         return $this;
     }
 
+    /**
+     * @param Email $email
+     * @return Generator
+     */
     public function addEmailAddress(Email $email) : Generator
     {
         $this->vcard->addEmailAddress($email);
@@ -45,6 +67,20 @@ class Generator
         return $this;
     }
 
+    /**
+     * @param Telephone $telephone
+     * @return Generator
+     */
+    public function addTelephone(Telephone $telephone) : Generator
+    {
+        $this->vcard->addTelephone($telephone);
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
     public function generate()
     {
         $this->string = 'BEGIN:VCARD' . PHP_EOL;
@@ -57,6 +93,10 @@ class Generator
 
         foreach ($this->vcard->getEmailAddresses() as $emailAddress) {
             $this->string .= $emailAddress->toString() . PHP_EOL;
+        }
+
+        foreach ($this->vcard->getTelephones() as $telephone) {
+            $this->string .= $telephone->toString() . PHP_EOL;
         }
         $this->string .= 'END:VCARD';
 

@@ -47,6 +47,17 @@ class Email
     }
 
     /**
+     * @param string $type
+     * @return Generator
+     */
+    public function addType(string $type) : Email
+    {
+        $this->types[] = $type;
+
+        return $this;
+    }
+
+    /**
      * @var array
      */
     protected $possibleTypes = [
@@ -54,11 +65,19 @@ class Email
         'powershare', 'prodigy', 'tlx', 'x400'
     ];
 
+    /**
+     * @return string
+     */
     public function toString() : string
     {
         $string = 'EMAIL;';
 
-        $string .= 'TYPE=' . strtoupper(implode(',', $this->getTypes())) . ':';
+        $types = [];
+        foreach ($this->getTypes() as $type) {
+            $types[] = 'TYPE=' . strtoupper($type);
+        }
+
+        $string .= implode(';',$types) . ':';
         $string .= (!empty($this->getAddress()) ? $this->getAddress() : '');
 
         return trim($string);

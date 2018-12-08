@@ -161,6 +161,10 @@ class Vcard
         return $this;
     }
 
+    /**
+     * @param Note $note
+     * @return Vcard
+     */
     public function setNote(Note $note) : Vcard
     {
         $this->note = $note;
@@ -198,5 +202,13 @@ class Vcard
         $this->telephoneNumbers[] = $telephone;
 
         return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getTelephones() : array
+    {
+        return $this->telephoneNumbers;
     }
 }

@@ -74,7 +74,7 @@ class Name
     /**
      * @return string
      */
-    public function getAdditionalName(): string
+    public function getAdditionalName(): ?string
     {
         return $this->additionalName;
     }
@@ -92,7 +92,7 @@ class Name
     /**
      * @return string
      */
-    public function getPrefix(): string
+    public function getPrefix(): ?string
     {
         return $this->prefix;
     }
