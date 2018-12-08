@@ -184,6 +184,14 @@ class Vcard
     }
 
     /**
+     * @return Organization
+     */
+    public function getOrganization() : ?Organization
+    {
+        return $this->organization;
+    }
+
+    /**
      * @param Role $role
      * @return Vcard
      */

@@ -5,6 +5,7 @@ namespace rutgerkirkels\vcard_generator;
 use rutgerkirkels\vcard_generator\Models\Address;
 use rutgerkirkels\vcard_generator\Models\Email;
 use rutgerkirkels\vcard_generator\Models\Name;
+use rutgerkirkels\vcard_generator\Models\Organization;
 use rutgerkirkels\vcard_generator\Models\Telephone;
 use rutgerkirkels\vcard_generator\Models\Vcard;
 
@@ -79,6 +80,17 @@ class Generator
     }
 
     /**
+     * @param Organization $organization
+     * @return Generator
+     */
+    public function setOrganization(Organization $organization) : Generator
+    {
+        $this->vcard->setOrganization($organization);
+
+        return $this;
+    }
+
+    /**
      * @return string
      */
     public function generate()
@@ -87,6 +99,9 @@ class Generator
         $this->string .= 'VERSION:' . number_format($this->vcard->getVersion(),1,'.', '') . PHP_EOL;
         $this->string .= $this->vcard->getName()->toString() . PHP_EOL;
         $this->string .= $this->vcard->getName()->getFormattedNameString() . PHP_EOL;
+        if (!is_null($this->vcard->getOrganization())) {
+            $this->string .= $this->vcard->getOrganization()->toString() . PHP_EOL;
+        }
         foreach ($this->vcard->getAddresses() as $address) {
             $this->string .= $address->toString() . PHP_EOL;
         }
